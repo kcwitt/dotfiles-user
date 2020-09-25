@@ -1,0 +1,4 @@
+alias vim="nvim"
+export VISUAL="nvim"
+export EDITOR="$VISUAL"
+export MANPAGER="nvim +Man!"
