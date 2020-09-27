@@ -12,3 +12,5 @@ compinit
 # End of lines added by compinstall
 
 . ~/.aliasrc
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

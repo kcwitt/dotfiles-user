@@ -17,3 +17,5 @@ export PATH
 
 # User specific aliases and functions
 source ~/.aliasrc
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

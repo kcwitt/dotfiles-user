@@ -147,7 +147,8 @@ augroup END
 " it is obvious that a good place to start is `:help undotree-intro`, and then
 " go from there.
 
-if empty(glob('~/.vim/autoload/plug.vim')) " auto install vim-plug if not already installed
+" if empty(glob('~/.vim/autoload/plug.vim')) " auto install vim-plug if not already installed
+if empty(glob('`ls "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim`')) " auto install vim-plug if not already installed
   silent !sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -197,7 +198,7 @@ nnoremap <leader>R :Files<CR>
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 let g:fzf_commands_expect = 'alt-enter,ctrl-x' " [Commands] --expect expression for directly executing the command
 
-Plug 'ycm-core/YouCompleteMe' " autocompletion, refactoring, and jumping to references
+Plug 'ycm-core/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'python3 install.py --all' } " autocompletion, refactoring, and jumping to references
 " requires python3, python3-devel, cmake
 " requires manual install step:
 " `cd ~/.vim/plugged/YouCompleteMe && python3 install.py --all`
