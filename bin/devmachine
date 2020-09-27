@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -eu
+
+sudo machinectl --setenv="DISPLAY=${DISPLAY}" shell "${@:-"$(id -un)@workshop"}"
