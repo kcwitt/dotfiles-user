@@ -1,1 +1,4 @@
-alias vim="nvim"
+EDITOR="nvim"
+VISUAL="${EDITOR}"
+alias vi="${EDITOR}"
+alias vim="${EDITOR}"
