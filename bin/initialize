@@ -2,4 +2,11 @@
 
 sudo dnf install \
   neovim \
-  zsh
+  zsh \
+  nodejs \
+  python3 \
+  fzf \
+  xsel
+
+sudo npm install --global standard yarn neovim
+sudo pip3 install pynvim
