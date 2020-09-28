@@ -68,6 +68,8 @@ endif
 set undofile " use undofiles (so set noswapfile and set nobackup)
 set undodir=~/.vim/undodir " location for undofiles
 
+let g:clipboard = "xsel"
+
 set cursorline " highlight the line the cursor is on
 au WinEnter * setlocal cursorline " turn on cursorline for active window
 au WinLeave * setlocal nocursorline " turn off cursorline for inactive window
@@ -145,9 +147,10 @@ augroup END
 " it is obvious that a good place to start is `:help undotree-intro`, and then
 " go from there.
 
-if empty(glob('~/.vim/autoload/plug.vim')) " auto install vim-plug if not already installed
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" if empty(glob('~/.vim/autoload/plug.vim')) " auto install vim-plug if not already installed
+if empty(glob('`ls "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim`')) " auto install vim-plug if not already installed
+  silent !sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -157,7 +160,7 @@ Plug 'tpope/vim-commentary' " comment/uncomment easily (visual select and type g
 Plug 'tpope/vim-surround' " easily change/add/remove matching brackets and quotes
 Plug 'tpope/vim-fugitive' " git integration (to get some git info in the status bar, but it also does other stuff)
 Plug 'jkramer/vim-narrow' " select subset of file to edit
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' } " code formatting
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' } " code formatting
 " Plug 'tpope/vim-unimpaired' " some shortcuts for jumping around
 
 Plug 'morhetz/gruvbox' " gruvbox color scheme
@@ -195,7 +198,7 @@ nnoremap <leader>R :Files<CR>
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 let g:fzf_commands_expect = 'alt-enter,ctrl-x' " [Commands] --expect expression for directly executing the command
 
-Plug 'ycm-core/YouCompleteMe' " autocompletion, refactoring, and jumping to references
+Plug 'ycm-core/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'python3 install.py --all' } " autocompletion, refactoring, and jumping to references
 " requires python3, python3-devel, cmake
 " requires manual install step:
 " `cd ~/.vim/plugged/YouCompleteMe && python3 install.py --all`
