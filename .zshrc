@@ -11,6 +11,13 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# User specific environment (copied from ~/.bashrc)
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
 . ~/.aliasrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
