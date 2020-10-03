@@ -58,7 +58,7 @@ floating_modifier $mod
 #bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+Return exec xfce4-terminal --initial-title Host --dynamic-title-mode after
 #bindsym $mod+Return exec xfce4-terminal
-bindsym $mod+Return exec xfce4-terminal --command ~/bin/devmachine --initial-title Workshop
+bindsym $mod+Return exec xfce4-terminal --command ~/.local/bin/devmachine --initial-title Workshop
 
 
 # kill focused window
