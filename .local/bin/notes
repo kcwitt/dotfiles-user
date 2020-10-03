@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -eEuo pipefail
+
+NOTES_DIR="${HOME}/.notes"
+
+if [ "${1:-""}" = 'commit' ]; then
+    git -C "${NOTES_DIR}" add .
+    git -C "${NOTES_DIR}" commit
+else
+    mkdir -p "${NOTES_DIR}"
+    [ -d "${NOTES_DIR}/.git" ] || git -C "${NOTES_DIR}" init
+    cd "${NOTES_DIR}"
+    if [ $# -gt 0 ]; then
+        nvim "${@}"
+    else
+        nvim "${NOTES_DIR}"
+    fi
+fi

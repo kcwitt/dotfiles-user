@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+
+sudo dnf install \
+  fedora-release \
+  neovim \
+  zsh \
+  nodejs \
+  python3 \
+  python3-devel \
+  fzf \
+  xsel \
+  weechat
+
+sudo dnf groupinstall "Development Tools"
+
+sudo npm install --global standard yarn neovim
+sudo pip3 install pynvim
+
+if [ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim ]; then
+  curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+if [ -z "$(git config --global user.name)" ]; then
+  printf "\nEnter Git Username: "
+  read -r val
+  [ -n "${val}" ] && git config --global user.name "${val}"
+fi
+if [ -z "$(git config --global user.email)" ]; then
+  printf "\nEnter Git Email: "
+  read -r val
+  [ -n "${val}" ] && git config --global user.email "${val}"
+fi
+
+# for chromecast streaming (this hasn't actually been tested and is for future reference only)
+if [ "$1" = "mkchromecast" ];then
+  git clone "https://github.com/muammar/mkchromecast.git" "/usr/local/src/mkchromecast"
+  (cd "/usr/local/src/mkchromecast" && pip install -r --user requirements.txt)
+fi
