@@ -9,6 +9,9 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# use compton compositor (needed to share fullstreen with MS Teams due to red rectangle overlay)
+exec --no-startup-id compton --vsync opengl-swc --backend glx
+
 set $mod Mod4
 
 # swap windows and alt keys

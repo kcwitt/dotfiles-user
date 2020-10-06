@@ -13,6 +13,9 @@
 " ## The User Manual
 " To learn your way around vim, read the user manual with `:help user-manual`
 "
+" ## vimcasts.org
+" Another great resource for leaning vim is the site http://vimcasts.org/episodes/
+"
 " # VIMRC
 " This is a .vimrc file, which is the main configuration file for vim (and
 " neovim), but it is not always called '.vimrc'. Use `:help vimrc` to learn
@@ -68,15 +71,9 @@ endif
 set undofile " use undofiles (so set noswapfile and set nobackup)
 set undodir=~/.vim/undodir " location for undofiles
 
-let g:clipboard = "xsel"
-
 set cursorline " highlight the line the cursor is on
 au WinEnter * setlocal cursorline " turn on cursorline for active window
 au WinLeave * setlocal nocursorline " turn off cursorline for inactive window
-
-" " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" " delays and poor user experience.
-" set updatetime=2000
 
 let mapleader = ' ' " change leader to space for convienence
 
@@ -97,40 +94,49 @@ noremap t j
 noremap n k
 noremap s l
 
-" map capital letters for searching (since n is in dvorak homerow)
+" map capital letters for searching (since n is in dvorak homerow and already
+" bound to a movement)
 noremap T n
 noremap N N
 
 " to move between tabs
-noremap H :tabp<CR>
-noremap S :tabn<CR>
+nnoremap <silent> H :tabp<CR>
+nnoremap <silent> S :tabn<CR>
 
 " map control-homerow to move between windows
-noremap <leader>h <C-W><C-H>
-noremap <leader>t <C-W><C-J>
-noremap <leader>n <C-W><C-K>
-noremap <leader>s <C-W><C-L>
+nnoremap <silent> <c-h> :wincmd h<cr>
+nnoremap <silent> <c-t> :wincmd j<cr>
+nnoremap <silent> <c-n> :wincmd k<cr>
+nnoremap <silent> <c-s> :wincmd l<cr>
 
-" maximize current window
-nnoremap <C-W>m <C-W>_<C-W><Bar>
-
-augroup javascript_local
-    au!
-    au FileType javascript setlocal foldmethod=indent
-    au FileType javascript IndentLinesEnable
-augroup END
-
-function MarkdownLocalSetup()
+" define some functions to configure the environment for specific filetypes
+function LocalMarkdownSetup()
   setlocal spell spelllang=en_us
   setlocal wrap linebreak nolist
-  Goyo
   noremap t gj
   noremap n gk
+  :Goyo
 endfunction
-augroup markdown_local
-  au!
-  au FileType markdown call MarkdownLocalSetup()
-augroup END
+
+function LocalJavascriptSetup()
+  setlocal foldmethod=indent
+  :IndentLinesEnable
+endfunction
+
+" if vim/nvim is compiled with 'autocmd' run the above functions automatically
+" based on filetype detection
+if has("autocmd")
+  augroup local_javascript
+      au!
+      au FileType javascript call LocalJavascriptSetup()
+  augroup END
+
+  augroup local_markdown
+    au!
+    au FileType markdown call LocalMarkdownSetup()
+  augroup END
+endif
+
 
 " Everything below here is related to plugins (using
 " https://github.com/junegunn/vim-plug plugin manager).
@@ -179,7 +185,7 @@ let g:airline_powerline_fonts = 1
 Plug 'Yggdroot/indentLine' " show vertical indentation lines
 let g:indentLine_color_term = 'black'
 let g:indentLine_char_list = ['|']
-" let g:indentLine_enabled = 0 " off by default
+let g:indentLine_enabled = 0 " off by default
 
 Plug 'easymotion/vim-easymotion' " jump cursor to arbitrary position on the visible screen
 let g:EasyMotion_do_mapping = 0 " disable default mappings
