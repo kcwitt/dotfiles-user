@@ -217,21 +217,18 @@ bindsym $mod+b exec firefox
 bindsym $mod+l exec firefox --private-window
 exec --no-startup-id xrandr --output eDP --scale 0.5x0.5
 
+bindsym Shift+$mod+grave move workspace to output right
+bindsym Shift+$mod+8 move workspace to output left
+
+workspace_auto_back_and_forth no
+force_display_urgency_hint 500 ms
+
 bindsym $mod+w exec xfce4-terminal --title 'notes' --command 'notes'
 for_window [ title="notes" ] floating enable
 bindsym $mod+v exec xfce4-terminal --title "task"
 for_window [ title="task" ] floating enable
 
-bindsym Shift+$mod+grave move workspace to output right
-bindsym Shift+$mod+8 move workspace to output left
-
-exec --no-startup-id xrdb -merge ~/.Xresources &
-
-# not using urxvt anymore since it doesn't support glyphs well (ie. powerline fonts)
-# exec --no-startup-id urxvtd -q -f -o
-
 for_window [class="Blueberry.py" instance="blueberry.py" title="Bluetooth"] floating enable
-
 
 set $teams [class="Microsoft Teams" instance="microsoft teams"]
 assign $teams 1
@@ -251,17 +248,9 @@ assign $volumepanel 1
 
 for_window [class="Thunar" instance="Thunar"] floating enable
 
-
-set $thunar [class="Thunar" instance="thunar"]
-for_window $thunar floating enable
-
 for_window [class="PanGPUI" instance="PanGPUI" title="PanGPUI"] floating enable
 
-set $appfinder [class="Xfce4-appfinder" instance="xfce4-appfinder" title="Application Finder"]
-for_window $appfinder floating enable
-
-workspace_auto_back_and_forth no
-force_display_urgency_hint 500 ms
+for_window [class="Xfce4-appfinder" instance="xfce4-appfinder" title="Application Finder"] floating enable
 
 # read 1 character and mark the current window with this character
 bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
@@ -273,8 +262,6 @@ bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 bindsym $mod+Shift+c move scratchpad
 # Show the first scratchpad window
 bindsym $mod+c scratchpad show
-# Show the sup-mail scratchpad window, if any.
-#bindsym mod4+s [title="^Sup ::"] scratchpad show
 
 exec --no-startup-id xsetroot -solid "#000000"
 

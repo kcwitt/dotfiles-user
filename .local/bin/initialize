@@ -9,7 +9,8 @@ sudo dnf install \
   python3-devel \
   fzf \
   xsel \
-  weechat
+  weechat \
+  compton
 
 sudo dnf groupinstall "Development Tools"
 
