@@ -9,6 +9,9 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# this doesn't seem to work with compton compositor running (so just accept default fedora background)
+# exec --no-startup-id xsetroot -gray
+
 # use compton compositor (needed to share fullstreen with MS Teams due to red rectangle overlay)
 exec --no-startup-id compton --vsync opengl-swc --backend glx
 
@@ -262,7 +265,5 @@ bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 bindsym $mod+Shift+c move scratchpad
 # Show the first scratchpad window
 bindsym $mod+c scratchpad show
-
-exec --no-startup-id xsetroot -solid "#000000"
 
 bindsym $mod+i exec i3-inspect-window > ~/i3-inspection-report.txt
